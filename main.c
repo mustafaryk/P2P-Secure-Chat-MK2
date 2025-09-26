@@ -70,11 +70,11 @@ int main(int argc, char **argv){
 		}
 		
 		if (FD_ISSET(STDIN_FILENO, &ready_read_sockets)){		//we have data in stdin
-			if (cfd != -1){				//we have a client so send data to him
+			if (cfd != -1){				//we have a client so send data in stdin to him before checking if its an instruction
 				write_to_client();
 			}
 			else{						//we dont have a client so its an instruction
-				handle_input();
+				handle_input(atoi(argv[1]));
 			}
 		}
 		
