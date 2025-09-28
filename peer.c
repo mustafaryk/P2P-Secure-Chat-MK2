@@ -69,9 +69,20 @@ int connect_as_server(){		//we as a peer are connecting as a server (waiting for
 	cfd = accept(sfd, (struct sockaddr *)&ca, &sinlen);
 	
 	EVP_PKEY *pkey = EVP_RSA_gen(2048);         //generate RSA key
+	if (pkey == NULL){
+		fprintf(stderr, "Error in creating key\n");
+		disconnect();
+		return 1;
+	}
 	X509 *x509 = X509_new();                    //create a new X509 cert
+	if (x509 == NULL){
+		fprintf(stderr, "Error in creating x509 certificate\n");
+		EVP_PKEY_free(pkey);
+		disconnect();
+		return 1;
+	}
 	X509_set_pubkey(x509, pkey);				//initialise private key
-	X509_set_version(x509, 2);					//fill out cert with jargon
+	X509_set_version(x509, 2);					//fill out cert with jargon, for the scope of the app, certifiying the app is too much work
 	X509_gmtime_adj(X509_get_notBefore(x509), 0);
 	X509_gmtime_adj(X509_get_notAfter(x509), 31536000L);  // 1 year
 	X509_NAME *name = X509_get_subject_name(x509);
@@ -84,7 +95,7 @@ int connect_as_server(){		//we as a peer are connecting as a server (waiting for
 	ctx = SSL_CTX_new(TLS_server_method());
 	SSL_CTX_use_certificate(ctx, x509);			//jargon to feed ctx so it thinks we are legit
 	SSL_CTX_use_PrivateKey(ctx, pkey);
-	X509_free(x509);						//free up priv key and certificate
+	X509_free(x509);						//free up priv key and certificate since they are part of the context now
 	EVP_PKEY_free(pkey);
     if (ctx == NULL){						
 		fprintf(stderr, "Error in creating context\n");
