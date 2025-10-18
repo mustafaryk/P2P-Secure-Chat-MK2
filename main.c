@@ -20,11 +20,7 @@ SSL* ssl = NULL;
 SSL_CTX* ctx = NULL; 
 
 int main(int argc, char **argv){
-
-	if (argc < 2){  
-        fprintf(stderr, "Need port number for you to host on\n");  
-        return -1;  
-    }
+	
 	struct sigaction myaction;      //so that writing to disconnected peer doesnt end server  
     myaction.sa_handler = SIG_IGN;  
     sigaction(SIGPIPE, &myaction, NULL);  
@@ -37,19 +33,29 @@ int main(int argc, char **argv){
   
 	struct sockaddr_in a;
     memset(&a, 0, sizeof(struct sockaddr_in));      //preamble for setting up server down below  
-    a.sin_family = AF_INET;  
-    a.sin_port = htons(atoi(argv[1])); // first argument is your port number  
+    a.sin_family = AF_INET;
+	if (argc < 2){  
+		a.sin_port = htons(0); // kernel will assign any available port number
+    }
+	else{
+		a.sin_port = htons(atoi(argv[1])); // first argument is your port number 
+	}
     a.sin_addr.s_addr = htonl(INADDR_ANY);  
   
     if (bind(sfd, (struct sockaddr *)&a, sizeof(struct sockaddr_in)) == -1){		//bind
         fprintf(stderr, "Bind failed\n");  
         return -1;  
-    }  
+    }
   
     if (listen(sfd, max_client_queue) == -1){			//listen
         fprintf(stderr, "Listen failed\n");  
         return -1;  
     }
+	
+	socklen_t len = sizeof(a);						//get port number and print and store for future use
+	getsockname(sfd, (struct sockaddr *)&a, &len);
+	int port_number = ntohs(a.sin_port);
+	printf("Hosting on Port: %d\n", port_number);
 	
 	printf("Waiting for connection as a server now.\nIf you would like to connect type: \"CONNECT:IP_ADDRESS PORT_NUMBER\"\nIf you would like to disconnect type: \"DISCONNECT\"\nIf you would like to quit type: \"QUIT\"\n");
 	
@@ -74,7 +80,7 @@ int main(int argc, char **argv){
 				write_to_client();
 			}
 			else{						//we dont have a client so its an instruction
-				handle_input(atoi(argv[1]));
+				handle_input(port_number);
 			}
 		}
 		
