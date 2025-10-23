@@ -18,14 +18,18 @@ Messages are sent directly between peers with RSA key exchange and AES session e
 
 ### 1. Clone the repository
 '''bash
+
 git clone https://github.com/mustafaryk/P2P-Secure-Chat-MK2.git
+
 cd P2P-Secure-Chat-MK2
 
 ### 2. Compile the backend
 '''bash
+
 make
 
 ### 3. Run!
 '''bash
-python3 p2p.py
+
+python3 P2P.py
 
