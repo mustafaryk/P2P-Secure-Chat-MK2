@@ -1,8 +1,7 @@
 # Peer-to-Peer Secure Chat
 
 A peer-to-peer encrypted chat program written in C with an OpenSSL backend and a Python (Tkinter) frontend.  
-Messages are sent directly between peers with RSA key exchange and AES session encryption.
-
+Messages are sent directly between peers with RSA key exchange and AES session encryption. 
 ---
 
 ## Features
@@ -32,4 +31,7 @@ make
 '''bash
 
 python3 P2P.py
+
+# NOTE
+After compiling the backend, you can run directly on the terminal by ./main but its quite terse.
 
