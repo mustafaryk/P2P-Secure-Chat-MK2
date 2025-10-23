@@ -32,6 +32,12 @@ make
 
 python3 P2P.py
 
-# NOTE
-After compiling the backend, you can run directly on the terminal by ./main but its quite terse.
+# Terminal Mode
+After compiling the backend in step 2, you can run the backend directly by:
+
+'''bash
+
+./main
+
+It will be functionally identical to chatting using the UI but keep in mind its quite terse
 
