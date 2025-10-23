@@ -12,7 +12,7 @@ Friendly, intuitive GUI built using Tkinter for ease of use.
 ---
 ## Video
 
-![Demo](docs/gif1.gif)
+https://github.com/mustafaryk/P2P-Secure-Chat-MK2/issues/1#issue-3547010406
 
 ---
 ## Features
