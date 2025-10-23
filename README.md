@@ -18,8 +18,8 @@ Messages are sent directly between peers with RSA key exchange and AES session e
 
 ### 1. Clone the repository
 '''bash
-git clone https://github.com/YOUR_USERNAME/p2p-secure-chat.git
-cd p2p-secure-chat
+git clone https://github.com/mustafaryk/P2P-Secure-Chat-MK2.git
+cd P2P-Secure-Chat-MK2
 
 ### 2. Compile the backend
 '''bash
