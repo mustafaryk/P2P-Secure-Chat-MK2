@@ -1,7 +1,31 @@
-you compile using: gcc main.c peer.c -o main -I/usr/include/openssl -L/usr/lib -lcrypto -lssl
+# Peer-to-Peer Secure Chat
 
-run using: ./main
+A peer-to-peer encrypted chat program written in C with an OpenSSL backend and a Python (Tkinter) frontend.  
+Messages are sent directly between peers with RSA key exchange and AES session encryption.
 
-instructions will be given when you run the program succesfully
+---
 
-Currently adding functionality for a user interface using Python
+## Features
+- End-to-end encrypted messaging (RSA + AES-GCM)
+- Direct peer-to-peer communication (no server)
+- Tkinter GUI for sending and receiving messages
+- Works on Linux, macOS, and Windows (via WSL)
+- Simple Makefile build system
+
+---
+
+## Build and Run
+
+### 1. Clone the repository
+'''bash
+git clone https://github.com/YOUR_USERNAME/p2p-secure-chat.git
+cd p2p-secure-chat
+
+### 2. Compile the backend
+'''bash
+make
+
+### 3. Run!
+'''bash
+python3 p2p.py
+
