@@ -47,7 +47,6 @@ int SSL_read_all(SSL *ssl, const void* buf, int num){
 void disconnect(){
 	if(cfd != -1){
 		printf("Peer has disconnected.\n");
-		printf("Waiting for connection as a server now.\nIf you would like to connect to a peer, type: \"CONNECT:IP_ADDRESS PORT_NUMBER\"\n");
 		FD_CLR(cfd, &all_sockets);
 		close(cfd);
 		cfd = -1;
@@ -122,7 +121,7 @@ int connect_as_server(){		//we as a peer are connecting as a server (waiting for
 	char dot_notation[INET_ADDRSTRLEN];
 	inet_ntop(AF_INET, &ca.sin_addr, dot_notation, INET_ADDRSTRLEN);
 	
-	unsigned char custom_message[64] = "Handshake complete... Hello world!\n";		// absolutely essential to do, there is some issue when connecting as client with the buffer, some openssl bullshit
+	unsigned char custom_message[64] = "Handshake alogirthm complete... Hello!\n";		// absolutely essential to do, there is some issue when connecting as client with the buffer, some openssl bullshit
 	uint32_t custom_message_length = strlen(custom_message) + 1;
 	if (SSL_write_all(ssl, &custom_message_length, sizeof(custom_message_length)) <= 0){
 		fprintf(stderr, "COULD NOT COMPLETE HANDSHAKE\n");
@@ -135,7 +134,7 @@ int connect_as_server(){		//we as a peer are connecting as a server (waiting for
 		return 1;
 	}
 	
-	printf("Success in connecting to client with IP address: %s and with port number: %d\n", dot_notation, ntohs(ca.sin_port));
+	printf("Success in connecting to peer with IP address: %s.\n", dot_notation);
 	return 0;
 }
 
@@ -146,7 +145,7 @@ int connect_as_client(char* ip_address,int port_number){
 	ca.sin_port = htons(port_number);
 
 	if (inet_pton(AF_INET, ip_address, &ca.sin_addr) <= 0){
-		printf("Not an IPv4 address\n");
+		fprintf(stderr, "Not an IPv4 address\n");
 		disconnect();
 		return 1;
 	}
@@ -181,7 +180,7 @@ int connect_as_client(char* ip_address,int port_number){
 		return 1;
 	}
 	
-	unsigned char custom_message[64] = "Handshake complete... Hello world!\n";		// for symmetry
+	unsigned char custom_message[64] = "Handshake alogirthm complete... Hello!\n";		// for symmetry
 	uint32_t custom_message_length = strlen(custom_message) + 1;
 	if (SSL_write_all(ssl, &custom_message_length, sizeof(custom_message_length)) <= 0){
 		fprintf(stderr, "COULD NOT COMPLETE HANDSHAKE\n");
@@ -194,7 +193,7 @@ int connect_as_client(char* ip_address,int port_number){
 		return 1;
 	}
 	
-	printf("Success in connecting to server with IP address: %s and with port number: %d,\n", ip_address, port_number);
+	printf("Success in connecting to peer with IP address: %s. Port number: %d\n", ip_address, port_number);
 	return 0;
 }
 
@@ -251,7 +250,6 @@ void handle_input(int your_port_number){
 		disconnect();
 		exit(0);
 	}
-	printf("If you would like to connect type: \"CONNECT:IP_ADDRESS PORT_NUMBER\"\nIf you would like to disconnect type: \"DISCONNECT\"\nIf you would like to quit type: \"QUIT\"\n");
 }
 
 void handle_client_data(){

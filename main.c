@@ -55,9 +55,9 @@ int main(int argc, char **argv){
 	socklen_t len = sizeof(a);						//get port number and print and store for future use
 	getsockname(sfd, (struct sockaddr *)&a, &len);
 	int port_number = ntohs(a.sin_port);
-	printf("Hosting on Port: %d\n", port_number);
+	printf("%d\n", port_number);
 	
-	printf("Waiting for connection as a server now.\nIf you would like to connect type: \"CONNECT:IP_ADDRESS PORT_NUMBER\"\nIf you would like to disconnect type: \"DISCONNECT\"\nIf you would like to quit type: \"QUIT\"\n");
+	printf("Backend succesfully started\n");
 	
     for(;;){		//loop
 		ready_read_sockets = all_sockets;	
