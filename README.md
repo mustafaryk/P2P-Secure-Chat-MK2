@@ -12,7 +12,7 @@ Friendly, intuitive GUI built using Tkinter for ease of use.
 ---
 ## Video
 
-ffmpeg -i docs/demo.mp4 -vf "fps=15,scale=640:-1:flags=lanczos" -loop 0 docs/demo.gif
+![Demo](docs/gif1.gif)
 
 ---
 ## Features
