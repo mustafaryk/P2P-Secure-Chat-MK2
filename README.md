@@ -7,6 +7,7 @@ Friendly, intuitive GUI built using Tkinter for ease of use.
 ---
 ## Screenshot
 
+![GUI](docs/SS2.png)
 ![GUI](docs/SS1.png)
 
 ---
