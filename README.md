@@ -7,7 +7,7 @@ Messages are sent directly between peers with RSA key exchange and AES session e
 Friendly, intuitive GUI built using Tkinter for ease of use.
 
 ---
-## Screenshot
+## Screenshots
 
 ![GUI](docs/SS2.png)
 ![GUI](docs/SS1.png)
