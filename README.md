@@ -1,7 +1,9 @@
 # Peer-to-Peer Secure Chat
 
 A peer-to-peer encrypted chat program written in C with an OpenSSL backend and a Python (Tkinter) frontend.  
+
 Messages are sent directly between peers with RSA key exchange and AES session encryption.
+
 Friendly, intuitive GUI built using Tkinter for ease of use.
 
 ---
